@@ -1,0 +1,98 @@
+# Конфиг SWAY WM(Делался под SwayFx некоторые функции на обычном sway могут не работать)
+# В качестве Mod клавиши выбрана win(super)
+
+# Основные настройки
+set $mod Mod4
+set $term alacritty
+set $browser firefox
+set $music "~/launch_spotify.sh"
+set $youtube "~/.config/sway/open_youtube.sh"
+set $menu rofi -show drun
+
+# Обои
+output * bg ~/.config/wallpaper3.jpg fill
+
+# Установка шрифтов
+font pango:monospace 12
+
+# Цветовая схема
+client.focused      #005577 #ffffff #005577
+client.unfocused    #222222 #888888 #222222
+client.focused_inactive #444444 #888888 #444444
+client.urgent       #ff0000 #ffffff #ff0000
+
+# Установка размера рамок окон
+default_border pixel 10
+for_window [floating] border pixel 10
+
+# Бинды
+bindsym --to-code $mod+Button1 move
+bindsym --to-code $mod+Button2 resize
+bindsym --to-code $mod+x exec telegram-desktop
+bindsym --to-code $mod+d exec $menu
+bindsym --to-code $mod+t exec $term
+bindsym --to-code $mod+f exec $browser
+bindsym --to-code $mod+Shift+f exec $browser --private-window
+bindsym --to-code $mod+Shift+y exec $youtube
+bindsym --to-code $mod+y exec $music
+bindsym --to-code $mod+u floating toggle 
+bindsym --to-code $mod+r exec azote 
+bindsym --to-code $mod+e exec thunar 
+bindsym --to-code $mod+Shift+Delete exit 
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym --to-code $mod+Shift+r reload 
+bindsym --to-code $mod+q kill 
+bindsym --to-code $mod+i fullscreen
+bindsym Print exec grim ~/Pictures/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png 
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +'%Y-%m-%d_%H-%M-%S').png 
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% 
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+# Перенос окна на другое рабочее пространство
+bindsym $mod+Alt+1    move container to workspace 1
+bindsym $mod+Alt+2    move container to workspace 2
+bindsym $mod+Alt+3    move container to workspace 3
+bindsym $mod+Alt+4    move container to workspace 4
+bindsym $mod+Alt+5    move container to workspace 5
+bindsym $mod+Alt+6    move container to workspace 6
+bindsym $mod+Alt+7    move container to workspace 7
+bindsym $mod+Alt+8    move container to workspace 8
+
+# Переключение между окнами
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Изменение размера окна
+bindsym $mod+Shift+Left resize shrink width 10px
+bindsym $mod+Shift+Right resize grow width 10px
+bindsym $mod+Shift+Up resize grow height 10px
+bindsym $mod+Shift+Down resize shrink height 10px
+
+# Автозапуск
+exec --no-startup-id picom
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id telegram-desktop
+
+# Смена расскладки клавиатуры (win + пробел)
+input "type:keyboard" {
+    xkb_layout "us,ru"
+    xkb_options "grp:win_space_toggle"
+}
+
+# Панель(Waybar)
+bar {
+    swaybar_command waybar
+}
