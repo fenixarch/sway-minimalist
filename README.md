@@ -2,6 +2,7 @@
 This is minimalist sway config
 
 Install:
+
 $ sudo pacman -S waybar rofi swaybg alacritty
 
 $ sudo chmod +x ~/.config/sway/launch_spotify.sh
